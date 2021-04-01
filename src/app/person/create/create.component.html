@@ -1,0 +1,169 @@
+<h3 style="padding-top: 50px">{{title}}</h3>
+
+<hr>
+
+<div class="row">
+  <div class="col-md-10">
+    <form [formGroup]="form">
+      <div class="alert alert-danger" *ngIf="errors.length > 0">
+        <h3 id="msgRetorno">Ops, something went wrong:</h3>
+        <ul>
+          <li *ngFor="let error of errors">{{ error }}</li>
+        </ul>
+      </div>
+
+      <fieldset *ngIf="!isEditAction">
+        <legend>Document</legend>
+        <div class="form-check form-check-inline">
+          <input formControlName="documentType" class="form-check-input" type="radio" name="documentType" value="1" (click)="clearPerson()">
+          <label class="form-check-label" for="documentType">CPF</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input formControlName="documentType" class="form-check-input" type="radio" name="documentType" value="2" (click)="clearPerson()">
+          <label class="form-check-label" for="documentType">CNPJ</label>
+        </div>
+      </fieldset>
+
+      <div *ngIf="isNaturalPerson()">
+        <fieldset>
+          <legend>Natural Person</legend>
+          <div class="form-group">
+            <label class="control-label" for="CPF">CPF</label>
+            <input formControlName="cpf" class="form-control" type="text" data-val="true" placeholder="00000000000"
+              data-val-length="The field CPF must be 11 characters" data-val-length-max="11" data-val-length-min="11"
+              data-val-required="The field CPF is required" id="CPF" maxlength="11" name="CPF" value="">
+            <span class="text-danger field-validation-valid" data-valmsg-for="CPF" data-valmsg-replace="true"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" for="Name">Name</label>
+            <input formControlName="name" class="form-control" type="text" data-val="true"
+              data-val-length="The field Name must be between 2 and 200 characters" data-val-length-max="200"
+              data-val-length-min="2" data-val-required="The field Name is required" id="Name" maxlength="200"
+              name="Name" value="">
+            <span class="text-danger field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" for="Birthday">Birthday</label>
+            <input formControlName="birthday" class="form-control" type="text" data-val="true" placeholder="yyyy/mm/dd"
+              data-val-required="The field Birthday is required" id="Birthday" name="Birthday" value="">
+            <span class="text-danger field-validation-valid" data-valmsg-for="Birthday"
+              data-valmsg-replace="true"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" for="Gender">Gender</label>
+            <select class="form-control" data-val="true" formControlName="gender"
+              data-val-required="The field Gender is required" id="Gender" name="Gender">
+              <option value="1">Female</option>
+              <option value="2">Male</option>
+            </select>
+            <span class="text-danger field-validation-valid" data-valmsg-for="Gender" data-valmsg-replace="true"></span>
+          </div>
+        </fieldset>
+      </div>
+
+      <div *ngIf="isLegalPerson()">
+        <fieldset>
+          <legend>Legal Person</legend>
+          <div class="form-group">
+            <label class="control-label" for="CNPJ">CNPJ</label>
+            <input formControlName="cnpj" class="form-control" type="text" data-val="true" placeholder="00000000000000"
+              data-val-length="The field CNPJ must be 14 characters" data-val-length-max="14" data-val-length-min="14"
+              data-val-required="The field CNPJ is required" id="CNPJ" maxlength="14" name="CNPJ" value="">
+            <span class="text-danger field-validation-valid" data-valmsg-for="CNPJ" data-valmsg-replace="true"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" for="CompanyName">Company Name</label>
+            <input formControlName="companyName" class="form-control" type="text" data-val="true"
+              data-val-length="The field Company Name must be between 2 and 100 characters" data-val-length-max="100"
+              data-val-length-min="2" data-val-required="The field Company Name is required" id="CompanyName"
+              maxlength="100" name="CompanyName" value="">
+            <span class="text-danger field-validation-valid" data-valmsg-for="CompanyName"
+              data-valmsg-replace="true"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" for="TradeName">Trade Name</label>
+            <input formControlName="tradeName" class="form-control" type="text" data-val="true"
+              data-val-length="The field Trade Name must be between 2 and 100 characters" data-val-length-max="100"
+              data-val-length-min="2" data-val-required="The field Trade Name is required" id="TradeName"
+              maxlength="100" name="TradeName" value="">
+            <span class="text-danger field-validation-valid" data-valmsg-for="TradeName"
+              data-valmsg-replace="true"></span>
+          </div>
+        </fieldset>
+      </div>
+
+      <fieldset>
+        <legend>Address</legend>
+        <div class="form-group">
+          <label class="control-label" for="ZipCode">Zip Code</label>
+          <input formControlName="zipCode" class="form-control" type="text" data-val="true" placeholder="00000000"
+            data-val-length="The field Zip Code must be 8 characters" data-val-length-max="8" data-val-length-min="8"
+            data-val-required="The field Zip Code is required" id="ZipCode" maxlength="8" name="ZipCode" value="">
+          <span class="text-danger field-validation-valid" data-valmsg-for="ZipCode" data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="AddressOne">Address One</label>
+          <input formControlName="addressOne" class="form-control" type="text" data-val="true"
+            data-val-length="The field Address One must be between 2 and 200 characters" data-val-length-max="200"
+            data-val-length-min="2" data-val-required="The field Address One is required" id="AddressOne"
+            maxlength="200" name="AddressOne" value="">
+          <span class="text-danger field-validation-valid" data-valmsg-for="AddressOne"
+            data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="AddressTwo">Address Two</label>
+          <input formControlName="addressTwo" class="form-control" type="text" data-val="true"
+            data-val-length="The field Address Two must be between 2 and 200 characters" data-val-length-max="200"
+            data-val-length-min="2" data-val-required="The field Address Two is required" id="AddressTwo"
+            maxlength="200" name="AddressTwo" value="">
+          <span class="text-danger field-validation-valid" data-valmsg-for="AddressTwo"
+            data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="City">City</label>
+          <input formControlName="city" class="form-control" type="text" data-val="true"
+            data-val-length="The field City must be between 2 and 100 characters" data-val-length-max="100"
+            data-val-length-min="2" data-val-required="The field City One is required" id="City" maxlength="100"
+            name="City" value="">
+          <span class="text-danger field-validation-valid" data-valmsg-for="City" data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="State">State</label>
+          <input formControlName="state" class="form-control" type="text" data-val="true"
+            data-val-length="The field State must be between 2 and 50 characters" data-val-length-max="50"
+            data-val-length-min="2" data-val-required="The field State is required" id="State" maxlength="50"
+            name="State" value="">
+          <span class="text-danger field-validation-valid" data-valmsg-for="State" data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="Country">Country</label>
+          <input formControlName="country" class="form-control" type="text" data-val="true"
+            data-val-length="The field Country must be between 2 and 50 characters" data-val-length-max="50"
+            data-val-length-min="2" data-val-required="The field Country is required" id="Country" maxlength="50"
+            name="Country" value="">
+          <span class="text-danger field-validation-valid" data-valmsg-for="Country" data-valmsg-replace="true"></span>
+        </div>
+      </fieldset>
+
+      <div class="row">
+        <div class="col-md-2">
+          <input (click)="save()" type="button" value="Save Contact" class="btn btn-success">
+
+        </div>
+        <div class="col-md-2 pl-0">
+          <a class="btn btn-link" [routerLink]="['/person/list']">Back</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

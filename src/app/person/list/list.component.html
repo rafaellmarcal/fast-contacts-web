@@ -1,0 +1,43 @@
+<main role="main" class="pb-3">
+
+  <h1>Contact's List</h1>
+  <hr>
+
+  <p>
+    <a class="btn btn-primary" [routerLink]="['/person/new']">New Contact</a>
+  </p>
+
+  <table class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let contact of contacts'>
+        <td>
+          {{ contact.name }}
+        </td>
+        <td>
+          {{ contact.typeDescription }}
+        </td>
+        <td class="text-right">
+          <a class="btn btn-sm" [routerLink]="['/person/detail', contact.type, contact.id]">
+            <span class="fa fa-eye"></span>
+          </a>
+          <a class="btn btn-sm" [routerLink]="['/person/edit', contact.type, contact.id]">
+            <span class="fa fa-pencil-alt"></span>
+          </a>
+          <a class="btn btn-sm" [routerLink]="['/person/delete', contact.type, contact.id]">
+            <span class="fa fa-trash"></span>
+          </a>
+        </td>
+      </tr>
+      <tr *ngIf="contacts.length === 0">
+        <td colspan="3" class="text-center"><i>Your list is empty!</i></td>
+      </tr>
+    </tbody>
+  </table>
+</main>

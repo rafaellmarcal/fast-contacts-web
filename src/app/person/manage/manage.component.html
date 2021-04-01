@@ -1,0 +1,100 @@
+<h3 style="padding-top: 50px">{{title}}</h3>
+
+<hr>
+
+<div class="row">
+    <div class="col-md-10" [formGroup]="form">
+        <div *ngIf="isNaturalPerson()">
+            <fieldset>
+                <legend>Natural Person</legend>
+                <div class="form-group">
+                    <label class="control-label" for="CPF">CPF</label>
+                    <input formControlName="cpf" class="form-control" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="Name">Name</label>
+                    <input formControlName="name" class="form-control" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="Birthday">Birthday</label>
+                    <input formControlName="birthday" class="form-control" type="text" data-val="true"
+                        data-val-required="The field Birthday is required" id="Birthday" name="Birthday" value="">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="Gender">Gender</label>
+                    <select class="form-control" data-val="true" formControlName="gender"
+                        data-val-required="The field Gender is required" id="Gender" name="Gender">
+                        <option value="1">Female</option>
+                        <option value="2">Male</option>
+                    </select>
+                </div>
+            </fieldset>
+        </div>
+
+        <div *ngIf="isLegalPerson()">
+            <fieldset>
+                <legend>Legal Person</legend>
+                <div class="form-group">
+                    <label class="control-label" for="CNPJ">CNPJ</label>
+                    <input formControlName="cnpj" class="form-control" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="CompanyName">Company Name</label>
+                    <input formControlName="companyName" class="form-control" type="text">
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="TradeName">Trade Name</label>
+                    <input formControlName="tradeName" class="form-control" type="text">
+                </div>
+            </fieldset>
+        </div>
+
+        <fieldset>
+            <legend>Address</legend>
+            <div class="form-group">
+                <label class="control-label" for="ZipCode">Zip Code</label>
+                <input formControlName="zipCode" class="form-control" type="text">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="AddressOne">Address One</label>
+                <input formControlName="addressOne" class="form-control" type="text">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="AddressTwo">Address Two</label>
+                <input formControlName="addressTwo" class="form-control" type="text">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="City">City</label>
+                <input formControlName="city" class="form-control" type="text">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="State">State</label>
+                <input formControlName="state" class="form-control" type="text">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="Country">Country</label>
+                <input formControlName="country" class="form-control" type="text">
+            </div>
+        </fieldset>
+
+        <div class="row">
+            <div class="col-md-2" *ngIf="isDeleteAction">
+                <input type="button" (click)="delete()" value="Delete Contact" class="btn btn-danger">
+
+            </div>
+            <div class="col-md-2 pl-0">
+                <a class="btn btn-link" [routerLink]="['/person/list']">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
